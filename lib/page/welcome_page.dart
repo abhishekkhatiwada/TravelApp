@@ -65,7 +65,7 @@ class _WelcomePageState extends State<WelcomePage> {
                         CustomButton(
                           onPressed: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => HomePage(),
+                              builder: (context) => const HomePage(),
                             ));
                           },
                           width: 120,
@@ -87,7 +87,9 @@ class _WelcomePageState extends State<WelcomePage> {
               count: images.length,
               axisDirection: Axis.vertical,
               effect: const ExpandingDotsEffect(
-                  activeDotColor: AppColors.mainColor, dotHeight: 5),
+                  activeDotColor: AppColors.mainColor,
+                  dotWidth: 8,
+                  dotHeight: 5),
             ),
           ),
         ),

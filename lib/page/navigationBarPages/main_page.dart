@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_zoom_drawer/config.dart';
-import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:travelapp/common/colors.dart';
+import 'package:travelapp/page/detail_page.dart';
 import 'package:travelapp/widget/bold_text_style.dart';
 import 'package:travelapp/widget/regular_text_style.dart';
 
@@ -24,11 +23,11 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
     'balloning.png': 'Balloning',
     'hiking.png': 'Hiking',
     'kayaking.png': 'Kayaking',
-    'snorkling': 'Snorkling'
+    'snorkling.png': 'Snorkling'
   };
   @override
   Widget build(BuildContext context) {
-    TabController _tabController = TabController(length: 3, vsync: this);
+    TabController tabController = TabController(length: 3, vsync: this);
 
     return Scaffold(
         body: Column(
@@ -67,61 +66,66 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
         const SizedBox(
           height: 30,
         ),
-        Container(
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: TabBar(
-              controller: _tabController,
-              labelColor: Colors.black,
-              unselectedLabelColor: Colors.grey,
-              indicatorSize: TabBarIndicatorSize.label,
-              isScrollable: true,
-              indicatorPadding: EdgeInsets.only(top: 40),
-              indicator: BoxDecoration(
-                  shape: BoxShape.circle, color: AppColors.mainColor),
-              tabs: [
-                Tab(
-                  text: 'Places',
-                ),
-                Tab(
-                  text: 'Destination',
-                ),
-                Tab(
-                  text: 'Nature',
-                ),
-              ],
-            ),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: TabBar(
+            controller: tabController,
+            labelColor: Colors.black,
+            unselectedLabelColor: Colors.grey,
+            indicatorSize: TabBarIndicatorSize.label,
+            isScrollable: true,
+            indicatorPadding: const EdgeInsets.only(top: 40),
+            indicator: const BoxDecoration(
+                shape: BoxShape.circle, color: AppColors.mainColor),
+            tabs: const [
+              Tab(
+                text: 'Places',
+              ),
+              Tab(
+                text: 'Destination',
+              ),
+              Tab(
+                text: 'Nature',
+              ),
+            ],
           ),
         ),
         Container(
-            padding: EdgeInsets.only(left: 20),
+            padding: const EdgeInsets.only(left: 20),
             height: 300,
             width: double.maxFinite,
-            child: TabBarView(controller: _tabController, children: [
+            child: TabBarView(controller: tabController, children: [
               ListView.builder(
                 itemCount: images.length,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
-                  return Container(
-                    margin: const EdgeInsets.only(top: 15, right: 20),
-                    width: 200,
-                    height: 300,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: AssetImage('img/${images[index]}'))),
+                  return InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const DetailPage(),
+                      ));
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.only(top: 15, right: 20),
+                      width: 200,
+                      height: 300,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: AssetImage('img/${images[index]}'))),
+                    ),
                   );
                 },
               ),
-              Text('Helloo'),
-              Text('oooooooooooo')
+              const Text('Helloo'),
+              const Text('oooooooooooo')
             ])),
-        SizedBox(
+        const SizedBox(
           height: 50,
         ),
         Container(
-          margin: EdgeInsets.only(left: 20, right: 20),
+          margin: const EdgeInsets.only(left: 20, right: 20),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: const [
